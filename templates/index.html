@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Festivos Colombia {{ anio }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <!-- Navbar (Landify · Navbar) -->
+  <header class="navbar">
+    <a class="logo" href="/">
+      <span class="logo-mark" aria-hidden="true"></span>
+      Festivos CO
+    </a>
+    <nav class="nav-group">
+      <a class="nav-item" href="#proximo">Próximo</a>
+      <a class="nav-item" href="#calendario">Calendario</a>
+      <a class="nav-item" href="#lista">Lista</a>
+      <a class="nav-item" href="/api/festivos/{{ anio }}">API</a>
+    </nav>
+  </header>
+
+  <!-- Hero 01 -->
+  <section class="hero" id="proximo">
+    <div class="hero-container">
+      <p class="eyebrow">Próximo festivo en Colombia</p>
+      <h1 class="display-xl">{{ proximo.nombre }}</h1>
+      <p class="body-lg hero-date">
+        {{ proximo.fecha }} ·
+        {% if dias_faltan == 0 %}<strong>¡Es hoy!</strong>
+        {% else if dias_faltan == 1 %}<strong>Es mañana</strong>
+        {% else %}<strong>Faltan {{ dias_faltan }} días</strong>{% endif %}
+      </p>
+      {% if proximo.trasladado %}
+      <span class="badge">Trasladado al lunes · se celebraba el {{ proximo.original }}</span>
+      {% endif %}
+      <a class="btn btn-primary btn-xl" href="#calendario">Ver calendario {{ anio }}</a>
+    </div>
+    <div class="hero-visual">
+      <div class="circle-bg"><img src="/static/ellipse.svg" width="1200" height="1200" alt=""></div>
+      <div class="date-card">
+        <span class="date-card-weekday">{{ proximo.dia_semana }}</span>
+        <span class="date-card-day">{{ proximo.dia }}</span>
+        <span class="date-card-month">{{ proximo.mes }}</span>
+      </div>
+    </div>
+    <div class="line"></div>
+  </section>
+
+  <!-- Calendario -->
+  <section class="section" id="calendario">
+    <div class="section-heading">
+      <h2 class="display-lg">Festivos {{ anio }}</h2>
+      <p class="body-lg">
+        {{ lista.len() }} días festivos · {{ trasladados }} se trasladan al lunes por la Ley Emiliani.
+      </p>
+    </div>
+
+    <form class="year-nav" method="get" action="/#calendario">
+      {% if let Some(a) = anterior %}
+      <a class="btn btn-tertiary" href="/?anio={{ a }}#calendario">← {{ a }}</a>
+      {% endif %}
+      <label class="sr-only" for="anio">Año</label>
+      <input class="year-input" id="anio" name="anio" type="number" min="2026" max="9999" value="{{ anio }}">
+      <button class="btn btn-secondary" type="submit">Ir</button>
+      {% if let Some(s) = siguiente_anio %}
+      <a class="btn btn-tertiary" href="/?anio={{ s }}#calendario">{{ s }} →</a>
+      {% endif %}
+    </form>
+
+    <div class="legend">
+      <span><i class="dot dot-fijo"></i>Festivo</span>
+      <span><i class="dot dot-lunes"></i>Trasladado al lunes</span>
+      <span><i class="dot dot-hoy"></i>Hoy</span>
+    </div>
+
+    <div class="months">
+      {% for mes in meses %}
+      <article class="month">
+        <h3 class="month-name">{{ mes.nombre }}</h3>
+        <table>
+          <thead>
+            <tr><th>L</th><th>M</th><th>M</th><th>J</th><th>V</th><th>S</th><th>D</th></tr>
+          </thead>
+          <tbody>
+            {% for semana in mes.semanas %}
+            <tr>
+              {% for celda in semana %}
+              {% if let Some(dia) = celda %}
+              {% if let Some(f) = dia.festivos.first() %}
+              <td class="day festivo{% if f.trasladado %} trasladado{% endif %}{% if dia.hoy %} hoy{% endif %}"
+                  title="{% for f in dia.festivos %}{{ f.nombre }}{% if f.trasladado %} (trasladado){% endif %}{% if !loop.last %} · {% endif %}{% endfor %}">{{ dia.numero }}</td>
+              {% else %}
+              <td class="day{% if dia.domingo %} domingo{% endif %}{% if dia.hoy %} hoy{% endif %}">{{ dia.numero }}</td>
+              {% endif %}
+              {% else %}
+              <td></td>
+              {% endif %}
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Lista -->
+  <section class="section section-alt" id="lista">
+    <div class="section-heading">
+      <h2 class="display-lg">Lista {{ anio }}</h2>
+      <p class="body-lg">Fecha en que se descansa y, si aplica, el día original de la celebración.</p>
+    </div>
+    <ul class="holiday-list">
+      {% for f in lista %}
+      <li class="holiday">
+        <div class="holiday-date">
+          <span class="holiday-day">{{ f.dia }}</span>
+          <span class="holiday-month">{{ f.mes }}</span>
+        </div>
+        <div class="holiday-info">
+          <p class="holiday-name">{{ f.nombre }}</p>
+          <p class="holiday-sub">{{ f.fecha }}</p>
+        </div>
+        {% if f.trasladado %}
+        <span class="badge" title="Fecha original: {{ f.original }}">Movido desde {{ f.original }}</span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <footer class="footer">
+    Calculado con la Ley 51 de 1983 (Ley Emiliani) · Hora de Colombia (UTC−5)
+  </footer>
+</body>
+</html>

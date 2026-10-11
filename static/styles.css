@@ -1,0 +1,201 @@
+/* Tokens tomados del UI kit Landify (Foundations · Colors / Typography / Shadows) */
+:root {
+  --primary-900: #4c1d95;
+  --primary-600: #7c3aed;
+  --primary-300: #c4b5fd;
+  --primary-100: #ede9fe;
+  --primary-50: #f5f3ff;
+  --secondary-900: #2a4e51;
+  --secondary-600: #1db5be;
+  --secondary-100: #d5fafc;
+  --neutral-900: #111827;
+  --neutral-700: #374151;
+  --neutral-500: #6b7280;
+  --neutral-300: #d1d5db;
+  --neutral-200: #e5e7eb;
+  --neutral-100: #f3f4f6;
+  --neutral-50: #f9fafb;
+  --white: #ffffff;
+  --shadow-2xl: 0 24px 48px -12px rgba(17, 24, 39, 0.25);
+  --radius: 8px;
+  --gutter: 112px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--neutral-900);
+  font-family: "Inter", system-ui, sans-serif;
+  font-feature-settings: "liga" 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* Typography */
+.display-xl { margin: 0; font-size: 60px; line-height: 72px; font-weight: 700; letter-spacing: -1.5px; }
+.display-lg { margin: 0; font-size: 48px; line-height: 60px; font-weight: 700; letter-spacing: -1.2px; }
+.body-lg { margin: 0; font-size: 18px; line-height: 28px; font-weight: 400; }
+
+/* Navbar */
+.navbar {
+  height: 80px;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.logo { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+.logo-mark {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--primary-600), var(--secondary-600));
+}
+.nav-group { display: flex; gap: 8px; align-items: center; }
+.nav-item { padding: 4px 8px; font-size: 14px; line-height: 20px; font-weight: 600; }
+.nav-item:hover { color: var(--primary-600); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 16px; border: 0; border-radius: var(--radius);
+  font: 600 14px/20px "Inter", sans-serif; cursor: pointer; white-space: nowrap;
+}
+.btn-primary { background: var(--primary-600); color: var(--white); }
+.btn-primary:hover { background: var(--primary-900); }
+.btn-xl { padding: 16px 24px; font-size: 16px; line-height: 24px; }
+.btn-secondary { background: var(--primary-50); color: var(--primary-600); }
+.btn-secondary:hover { background: var(--primary-100); }
+.btn-tertiary { background: transparent; color: var(--primary-600); }
+.btn-tertiary:hover { background: var(--primary-50); }
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 4px 12px; border-radius: 999px;
+  background: var(--secondary-100); color: var(--secondary-900);
+  font-size: 14px; line-height: 20px; font-weight: 500;
+}
+
+/* Hero 01 */
+.hero {
+  display: flex; flex-direction: column; align-items: center; gap: 48px;
+  padding: 96px var(--gutter) 0;
+  overflow: hidden;
+}
+.hero-container {
+  display: flex; flex-direction: column; align-items: center; gap: 24px;
+  max-width: 1024px; text-align: center;
+}
+.eyebrow {
+  margin: 0; color: var(--primary-600);
+  font-size: 14px; line-height: 20px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+}
+.hero-date { color: var(--neutral-700); }
+.hero-date strong { color: var(--neutral-900); font-weight: 600; }
+.hero .btn { margin-top: 8px; }
+
+.hero-visual { position: relative; width: calc(100% + 2 * var(--gutter)); height: 321px; overflow: hidden; }
+.circle-bg { position: absolute; left: 0; right: 0; bottom: 0; height: 170px; overflow: hidden; }
+.circle-bg img { position: absolute; left: 50%; top: 0; transform: translateX(-50%); }
+.date-card {
+  position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  width: 320px; height: 280px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--white); border-radius: 24px 24px 0 0;
+  box-shadow: var(--shadow-2xl);
+}
+.date-card-weekday { color: var(--primary-600); font-weight: 600; font-size: 18px; line-height: 28px; }
+.date-card-day { font-size: 120px; line-height: 1; font-weight: 700; letter-spacing: -4px; }
+.date-card-month { color: var(--neutral-500); font-size: 20px; line-height: 28px; font-weight: 500; }
+.line { width: calc(100% + 2 * var(--gutter)); height: 1px; margin-top: -48px; background: var(--neutral-100); }
+
+/* Sections */
+.section {
+  display: flex; flex-direction: column; align-items: center; gap: 32px;
+  padding: 96px var(--gutter);
+}
+.section-alt { background: var(--neutral-50); }
+.section-heading {
+  display: flex; flex-direction: column; gap: 8px;
+  max-width: 800px; text-align: center;
+}
+
+.year-nav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.year-input {
+  width: 110px; padding: 10px 14px;
+  border: 1px solid var(--neutral-300); border-radius: var(--radius);
+  font: 600 16px/20px "Inter", sans-serif; color: var(--neutral-900); text-align: center;
+}
+.year-input:focus { outline: 2px solid var(--primary-300); border-color: var(--primary-600); }
+
+.legend { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; color: var(--neutral-500); font-size: 14px; }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.dot { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
+.dot-fijo { background: var(--primary-600); }
+.dot-lunes { background: var(--secondary-600); }
+.dot-hoy { box-shadow: inset 0 0 0 2px var(--neutral-900); }
+
+/* Calendario */
+.months {
+  width: 100%; max-width: 1216px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;
+}
+.month {
+  padding: 24px; border: 1px solid var(--neutral-200); border-radius: 16px; background: var(--white);
+}
+.month-name { margin: 0 0 12px; font-size: 18px; line-height: 28px; font-weight: 600; }
+.month table { width: 100%; border-collapse: separate; border-spacing: 2px; table-layout: fixed; }
+.month th { color: var(--neutral-500); font-size: 12px; font-weight: 500; padding-bottom: 4px; }
+.day {
+  height: 34px; text-align: center; font-size: 14px; border-radius: var(--radius);
+  color: var(--neutral-700);
+}
+.day.domingo { color: var(--neutral-500); }
+.day.festivo { background: var(--primary-600); color: var(--white); font-weight: 600; cursor: help; }
+.day.trasladado { background: var(--secondary-600); }
+.day.hoy { box-shadow: inset 0 0 0 2px var(--neutral-900); }
+
+/* Lista */
+.holiday-list {
+  list-style: none; margin: 0; padding: 0;
+  width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 12px;
+}
+.holiday {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  padding: 16px 20px; background: var(--white); border: 1px solid var(--neutral-200); border-radius: 12px;
+}
+.holiday-date {
+  width: 64px; display: flex; flex-direction: column; align-items: center;
+  padding: 6px 0; border-radius: var(--radius); background: var(--primary-50); color: var(--primary-600);
+}
+.holiday-day { font-size: 24px; line-height: 28px; font-weight: 700; }
+.holiday-month { font-size: 12px; font-weight: 600; text-transform: uppercase; }
+.holiday-info { flex: 1; min-width: 180px; }
+.holiday-name { margin: 0; font-weight: 600; font-size: 16px; line-height: 24px; }
+.holiday-sub { margin: 0; color: var(--neutral-500); font-size: 14px; line-height: 20px; }
+
+.footer { padding: 32px 16px; text-align: center; color: var(--neutral-500); font-size: 14px; border-top: 1px solid var(--neutral-100); }
+
+/* Tablet / móvil */
+@media (max-width: 900px) {
+  :root { --gutter: 32px; }
+  .display-xl { font-size: 48px; line-height: 60px; }
+  .display-lg { font-size: 36px; line-height: 44px; }
+}
+@media (max-width: 600px) {
+  :root { --gutter: 16px; }
+  .navbar { gap: 16px; }
+  .nav-group .nav-item:nth-child(n + 3) { display: none; }
+  .hero { padding-top: 48px; }
+  .display-xl { font-size: 40px; line-height: 48px; letter-spacing: -1px; }
+  .date-card { width: 260px; height: 240px; }
+  .date-card-day { font-size: 96px; }
+  .section { padding: 64px var(--gutter); }
+}
