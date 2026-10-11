@@ -1,12 +1,19 @@
 use axum::{Router, routing::get};
+use festivos_labs::services::free_days::REGLAS;
 
 async fn health() -> &'static str {
-    "ok"
+    "OK"
+}
+
+async fn reglas() -> String {
+    format!("{:#?}", REGLAS)
 }
 
 #[tokio::main]
 async fn main() {
-    let app = Router::new().route("/health", get(health));
+    let app = Router::new()
+        .route("/health", get(health))
+        .route("/reglas", get(reglas));
 
     let port = std::env::var("PORT").unwrap_or_else(|_| "3000".to_string());
     let addr = format!("0.0.0.0:{port}");
